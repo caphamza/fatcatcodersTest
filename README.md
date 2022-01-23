@@ -10,6 +10,8 @@ How To Run
 Run on ios and android using xcode and android studio respectivley.
 
 Alternate way using terminal:
+
 ios => react-native run-ios
+
 android => react-native run-android
 
