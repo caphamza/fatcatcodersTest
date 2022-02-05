@@ -1,23 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native'
 
 // assets
-import { myColors } from '../../theme/global'
+import globalStyle from '../../styles'
 
 // components
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import AvatarHeader from '../common/AvatarHeader'
 import ErrorAlert from '../common/ErrorAlert'
 
 interface Props {
   item: {
     image: string,
-    id: number,
+    id: string,
     name: string,
     status: string,
     agency: string,
@@ -31,7 +27,7 @@ type RootStackParamList = {
   CrewMember: {
     profileImg: string,
     info: {
-      id: number,
+      id: string,
       name: string,
       status: string,
       agency: string,
@@ -42,68 +38,47 @@ type RootStackParamList = {
 
 const CrewMembersCard = ({ item, index, permissionGranted }: Props) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-  
+  const {
+    id,
+    name,
+    status,
+    image,
+    agency,
+    wikipedia
+  } = item
   const onNavigateClick = async () => {
     if (permissionGranted) {
       navigation.navigate('CrewMember', {
         profileImg: item.image,
         info: {
-          id: item.id,
-          name: item.name,
-          status: item.status,
-          agency: item.agency,
-          wikipedia: item.wikipedia
+          id,
+          name,
+          status,
+          agency,
+          wikipedia
         }
       })
     } else {
       ErrorAlert('Permission Denied', 'Some of the features of this app are not accessible.\nGo to Settings and allow permissions to access them')
     }
   }
-  
-  return (
-    <TouchableOpacity
-      onPress={onNavigateClick}
-      style={[styles.container, index === 0 && { marginTop: 20 }]}
-    >
-      <View style={styles.content}>
-        <AvatarHeader
-          image={item.image}
-          name={item.name}
-          status={item.status}
-        />
-      </View>
-    </TouchableOpacity>
-  )
+  const MemoizedCard = useMemo(() => {
+    return (
+      <TouchableOpacity
+        onPress={onNavigateClick}
+        style={[globalStyle.avatarCard1Container, index === 0 && { marginTop: 20 }]}
+      >
+        <View style={globalStyle.avatarCard1Content}>
+          <AvatarHeader
+            image={image}
+            name={name}
+            status={status}
+          />
+        </View>
+      </TouchableOpacity>
+    )
+  }, [image, name, status])
+  return MemoizedCard
 }
 
 export default CrewMembersCard
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: myColors.white,
-    marginBottom: 12,
-    borderRadius: 8,
-    borderColor: myColors.darkBlue200
-  },
-  content: {
-    paddingHorizontal: 12,
-    paddingTop: 12,
-    paddingBottom: 8
-  },
-  linkView: {
-    paddingVertical: 2,
-    paddingRight: 6,
-    flexDirection: 'row'
-  },
-  img2: {
-    width: 18,
-    height: 18
-  },
-  txt2: {
-    marginLeft: 12,
-    fontSize: 16,
-    color: myColors.darkBlue700,
-    fontWeight: '500'
-  }
-  
-})

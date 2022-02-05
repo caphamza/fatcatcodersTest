@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { checkMultiple, PERMISSIONS } from 'react-native-permissions';
 
 // assets
-import { myColors } from '../theme/global'
-import EmptyIcon from '../assets/icons/empty.png'
+import { myColors } from '../../styles/colors'
+import globalStyle from '../../styles'
+import EmptyIcon from '../../assets/icons/empty.png'
+import { CrewMembersAPIResponse } from '../../interfaces'
 
 // components
 import {
@@ -12,19 +14,18 @@ import {
   Platform,
   Image,
   ScrollView,
-  RefreshControl,
-  StyleSheet
+  RefreshControl
 } from 'react-native'
-import Card from '../components/crewMembers/Card'
-import Spinner from '../components/common/Spinner'
-import ErrorAlert from '../components/common/ErrorAlert';
+import Card from '../../components/crewMembers/Card'
+import Spinner from '../../components/common/Spinner'
+import ErrorAlert from '../../components/common/ErrorAlert';
 
 // api
-import { crewMembersAPI } from '../api'
+import { crewMembersAPI } from '../../api'
 
 const CrewMembers = () => {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<CrewMembersAPIResponse[]>([])
   const [fetched, setFetched] = useState(false)
   const [isPermissionsGranted, setIsPermissionsGranted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -38,8 +39,8 @@ const CrewMembers = () => {
   const getData = async (refresh = false) => {
     try {
       refresh ? setRefreshing(true) : setLoading(true)
-      const res: any = await crewMembersAPI()
-      setData(res.data)
+      const res = await crewMembersAPI()
+      setData(res)
     } catch (e: any) {
       if (e.message.includes('Network Error')) {
         ErrorAlert('Network Error', 'No Internet!\n Please try later')
@@ -67,7 +68,7 @@ const CrewMembers = () => {
     setIsPermissionsGranted(Object.values(res).filter(v => v !== 'granted').length === 0)
   }
   return (
-    <View style={styles.container}>
+    <View style={[globalStyle.container, { paddingHorizontal: 12 }]}>
       <Spinner
         isLoading={loading}
       />
@@ -83,7 +84,7 @@ const CrewMembers = () => {
                   item={item}
                 />
               )}
-              keyExtractor={(item: any) => item.id}
+              keyExtractor={(item) => item.id}
               refreshControl={
                 <RefreshControl
                   colors={[myColors.brandGreen]}
@@ -108,8 +109,8 @@ const CrewMembers = () => {
               />
               }
             >
-              <View style={styles.emptyView}>
-                <Image resizeMode='contain' style={styles.emptyIcon} source={EmptyIcon}/>
+              <View style={globalStyle.emptyView}>
+                <Image resizeMode='contain' style={globalStyle.emptyIcon} source={EmptyIcon}/>
               </View>
             </ScrollView>
           </View>  
@@ -119,21 +120,3 @@ const CrewMembers = () => {
 }
 
 export default CrewMembers
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: myColors.backGround,
-    paddingHorizontal: 12,
-    flex: 1
-  },
-  emptyView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-   },
-   emptyIcon: {
-     width: 120,
-     height: 120,
-      marginBottom: '10%'
-   }
-})

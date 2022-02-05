@@ -1,11 +1,13 @@
 import React from 'react'
 
 // assets
-import { myColors } from '../theme/global'
+import { myColors } from '../../styles/colors'
+import globalStyle from '../../styles'
+import styles from './CrewMember.style'
 
 // components
-import { View, Text, Image, Pressable, Linking, StyleSheet } from 'react-native'
-import Header from '../components/common/Header'
+import { View, Text, Image, Pressable, Linking } from 'react-native'
+import Header from '../../components/common/Header'
 
 interface Prop {
   navigation: any,
@@ -13,7 +15,7 @@ interface Prop {
     params: {
       profileImg: string,
       info: {
-        id: number,
+        id: string,
         name: string,
         status: string,
         agency: string,
@@ -32,7 +34,7 @@ const CrewMember = ({ navigation, route }: Prop) => {
         title={info.name}
         onLeftClick={() => navigation.goBack()}
       />
-      <View style={styles.container}>
+      <View style={globalStyle.container}>
         <View style={styles.content}>
           <View style={styles.imgView}>
             <Image style={styles.img} source={{ uri: profileImg }} />
@@ -55,40 +57,3 @@ const CrewMember = ({ navigation, route }: Prop) => {
 }
 
 export default CrewMember
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: myColors.backGround,
-    flex: 1
-  },
-  content: {
-    backgroundColor: myColors.white,
-    paddingHorizontal: 16,
-    paddingVertical: 12
-  },
-  imgView: {
-    alignItems: 'center',
-    paddingBottom: 16,
-    marginBottom: 16,
-    borderBottomColor: myColors.darkBlue50,
-    borderBottomWidth: 1
-  },
-  img: {
-    width: 64,
-    height: 64,
-    backgroundColor: myColors.brandGreen,
-    borderRadius: 50
-  },
-  infoView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8
-  },
-  txt1: {
-    textTransform: 'capitalize',
-  },
-  txt2: {
-    textAlign: 'right'
-  }
-})

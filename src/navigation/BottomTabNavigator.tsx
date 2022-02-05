@@ -2,7 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // assets
-import { myColors } from '../theme/global'
+import { myColors } from '../styles/colors'
 import RocketIcon from '../assets/icons/rocket.png'
 import RocketFilledIcon from '../assets/icons/rocketFilled.png'
 import CrewMemebersIcon from '../assets/icons/crewMembers.png'
@@ -10,8 +10,8 @@ import CrewMembersFilledIcon from '../assets/icons/crewMembersFilled.png'
 
 // components
 import { Image } from 'react-native'
-import RocketsScreen from '../screens/Rockets'
-import CrewMembersScreen from '../screens/CrewMembers'
+import RocketsScreen from '../screens/rockets'
+import CrewMembersScreen from '../screens/crewMembers/CrewMembers'
 
 const Tab = createBottomTabNavigator();
 

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 // navigator
 import BottomTabNavigator from './BottomTabNavigator'
-import CrewMemberComponent from '../screens/CrewMember'
+import CrewMemberComponent from '../screens/crewMembers/CrewMember'
 
 const Stack = createNativeStackNavigator()
 
