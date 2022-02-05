@@ -10,7 +10,7 @@ import CrewMembersFilledIcon from '../assets/icons/crewMembersFilled.png'
 
 // components
 import { Image } from 'react-native'
-import RocketsScreen from '../screens/rockets/Rockets'
+import RocketsScreen from '../screens/rockets'
 import CrewMembersScreen from '../screens/crewMembers/CrewMembers'
 
 const Tab = createBottomTabNavigator();

@@ -13,8 +13,7 @@ import {
   Platform,
   Image,
   ScrollView,
-  RefreshControl,
-  StyleSheet
+  RefreshControl
 } from 'react-native'
 import Card from '../../components/crewMembers/Card'
 import Spinner from '../../components/common/Spinner'

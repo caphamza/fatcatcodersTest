@@ -3,6 +3,7 @@ import React from 'react'
 // assets
 import LeftIcon from '../../assets/icons/left.png'
 import styles from './Header.style'
+
 // components
 import {
   SafeAreaView,

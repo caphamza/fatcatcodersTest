@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native'
 
 // assets
-import { myColors } from '../../styles/colors'
 import globalStyle from '../../styles'
 
 // components
@@ -39,38 +38,48 @@ type RootStackParamList = {
 
 const CrewMembersCard = ({ item, index, permissionGranted }: Props) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-  
+  const {
+    id,
+    name,
+    status,
+    image,
+    agency,
+    wikipedia
+  } = item
+
   const onNavigateClick = async () => {
     if (permissionGranted) {
       navigation.navigate('CrewMember', {
         profileImg: item.image,
         info: {
-          id: item.id,
-          name: item.name,
-          status: item.status,
-          agency: item.agency,
-          wikipedia: item.wikipedia
+          id,
+          name,
+          status,
+          agency,
+          wikipedia
         }
       })
     } else {
       ErrorAlert('Permission Denied', 'Some of the features of this app are not accessible.\nGo to Settings and allow permissions to access them')
     }
   }
-  
-  return (
-    <TouchableOpacity
-      onPress={onNavigateClick}
-      style={[globalStyle.avatarCard1Container, index === 0 && { marginTop: 20 }]}
-    >
-      <View style={globalStyle.avatarCard1Content}>
-        <AvatarHeader
-          image={item.image}
-          name={item.name}
-          status={item.status}
-        />
-      </View>
-    </TouchableOpacity>
-  )
+  const MemoizedCard = useMemo(() => {
+    return (
+      <TouchableOpacity
+        onPress={onNavigateClick}
+        style={[globalStyle.avatarCard1Container, index === 0 && { marginTop: 20 }]}
+      >
+        <View style={globalStyle.avatarCard1Content}>
+          <AvatarHeader
+            image={image}
+            name={name}
+            status={status}
+          />
+        </View>
+      </TouchableOpacity>
+    )
+  }, [image, name, status])
+  return MemoizedCard
 }
 
 export default CrewMembersCard
