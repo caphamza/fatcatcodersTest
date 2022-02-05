@@ -1,10 +1,11 @@
 import React from 'react'
 
 // assets
-import { myColors } from '../../theme/global'
+import { myColors } from '../../styles/colors'
+import styles from './AvatarHeader.style'
 
 // components
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text } from 'react-native'
 
 interface Prop {
   image: string,
@@ -29,26 +30,3 @@ const AvatarHeader = ({ image, name, status }: Prop) => {
 }
 
 export default AvatarHeader
-
-const styles = StyleSheet.create({
-  headerView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 6
-  },
-  img1: {
-    width: 48,
-    height: 48,
-    borderRadius: 50,
-    backgroundColor: myColors.brandGreen
-  },
-  headerViewTxt1: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: myColors.darkBlue700,
-  },
-  headerViewTxt2: {
-    fontSize: 14,
-    color: myColors.darkBlue700
-  }
-})

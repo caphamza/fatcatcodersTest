@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { checkMultiple, PERMISSIONS } from 'react-native-permissions';
 
 // assets
-import { myColors } from '../theme/global'
-import EmptyIcon from '../assets/icons/empty.png'
+import { myColors } from '../../styles/colors'
+import globalStyle from '../../styles'
+import EmptyIcon from '../../assets/icons/empty.png'
 
 // components
 import {
@@ -15,12 +16,12 @@ import {
   RefreshControl,
   StyleSheet
 } from 'react-native'
-import Card from '../components/crewMembers/Card'
-import Spinner from '../components/common/Spinner'
-import ErrorAlert from '../components/common/ErrorAlert';
+import Card from '../../components/crewMembers/Card'
+import Spinner from '../../components/common/Spinner'
+import ErrorAlert from '../../components/common/ErrorAlert';
 
 // api
-import { crewMembersAPI } from '../api'
+import { crewMembersAPI } from '../../api'
 
 const CrewMembers = () => {
 
@@ -67,7 +68,7 @@ const CrewMembers = () => {
     setIsPermissionsGranted(Object.values(res).filter(v => v !== 'granted').length === 0)
   }
   return (
-    <View style={styles.container}>
+    <View style={[globalStyle.container, { paddingHorizontal: 12 }]}>
       <Spinner
         isLoading={loading}
       />
@@ -108,8 +109,8 @@ const CrewMembers = () => {
               />
               }
             >
-              <View style={styles.emptyView}>
-                <Image resizeMode='contain' style={styles.emptyIcon} source={EmptyIcon}/>
+              <View style={globalStyle.emptyView}>
+                <Image resizeMode='contain' style={globalStyle.emptyIcon} source={EmptyIcon}/>
               </View>
             </ScrollView>
           </View>  
@@ -119,21 +120,3 @@ const CrewMembers = () => {
 }
 
 export default CrewMembers
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: myColors.backGround,
-    paddingHorizontal: 12,
-    flex: 1
-  },
-  emptyView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-   },
-   emptyIcon: {
-     width: 120,
-     height: 120,
-      marginBottom: '10%'
-   }
-})

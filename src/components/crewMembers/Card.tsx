@@ -3,14 +3,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native'
 
 // assets
-import { myColors } from '../../theme/global'
+import { myColors } from '../../styles/colors'
+import globalStyle from '../../styles'
 
 // components
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import AvatarHeader from '../common/AvatarHeader'
 import ErrorAlert from '../common/ErrorAlert'
 
@@ -63,9 +60,9 @@ const CrewMembersCard = ({ item, index, permissionGranted }: Props) => {
   return (
     <TouchableOpacity
       onPress={onNavigateClick}
-      style={[styles.container, index === 0 && { marginTop: 20 }]}
+      style={[globalStyle.avatarCard1Container, index === 0 && { marginTop: 20 }]}
     >
-      <View style={styles.content}>
+      <View style={globalStyle.avatarCard1Content}>
         <AvatarHeader
           image={item.image}
           name={item.name}
@@ -77,33 +74,3 @@ const CrewMembersCard = ({ item, index, permissionGranted }: Props) => {
 }
 
 export default CrewMembersCard
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: myColors.white,
-    marginBottom: 12,
-    borderRadius: 8,
-    borderColor: myColors.darkBlue200
-  },
-  content: {
-    paddingHorizontal: 12,
-    paddingTop: 12,
-    paddingBottom: 8
-  },
-  linkView: {
-    paddingVertical: 2,
-    paddingRight: 6,
-    flexDirection: 'row'
-  },
-  img2: {
-    width: 18,
-    height: 18
-  },
-  txt2: {
-    marginLeft: 12,
-    fontSize: 16,
-    color: myColors.darkBlue700,
-    fontWeight: '500'
-  }
-  
-})

@@ -1,7 +1,7 @@
 import React from 'react'
 
 // assets
-import { myColors } from '../../theme/global'
+import { myColors } from '../../styles/colors'
 
 // components
 import { ActivityIndicator, Dimensions } from 'react-native'
