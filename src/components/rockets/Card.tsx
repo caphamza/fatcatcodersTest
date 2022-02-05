@@ -13,7 +13,6 @@ interface Prop {
     name: string,
     active: boolean,
     description: string,
-    status: boolean,
     flickr_images: string[]
   },
   index: number 

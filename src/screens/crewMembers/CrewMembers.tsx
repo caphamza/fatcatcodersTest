@@ -5,6 +5,7 @@ import { checkMultiple, PERMISSIONS } from 'react-native-permissions';
 import { myColors } from '../../styles/colors'
 import globalStyle from '../../styles'
 import EmptyIcon from '../../assets/icons/empty.png'
+import { CrewMembersAPIResponse } from '../../interfaces'
 
 // components
 import {
@@ -24,7 +25,7 @@ import { crewMembersAPI } from '../../api'
 
 const CrewMembers = () => {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<CrewMembersAPIResponse[]>([])
   const [fetched, setFetched] = useState(false)
   const [isPermissionsGranted, setIsPermissionsGranted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -38,8 +39,8 @@ const CrewMembers = () => {
   const getData = async (refresh = false) => {
     try {
       refresh ? setRefreshing(true) : setLoading(true)
-      const res: any = await crewMembersAPI()
-      setData(res.data)
+      const res = await crewMembersAPI()
+      setData(res)
     } catch (e: any) {
       if (e.message.includes('Network Error')) {
         ErrorAlert('Network Error', 'No Internet!\n Please try later')
@@ -83,7 +84,7 @@ const CrewMembers = () => {
                   item={item}
                 />
               )}
-              keyExtractor={(item: any) => item.id}
+              keyExtractor={(item) => item.id}
               refreshControl={
                 <RefreshControl
                   colors={[myColors.brandGreen]}

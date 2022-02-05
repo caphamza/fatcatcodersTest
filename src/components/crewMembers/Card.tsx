@@ -13,7 +13,7 @@ import ErrorAlert from '../common/ErrorAlert'
 interface Props {
   item: {
     image: string,
-    id: number,
+    id: string,
     name: string,
     status: string,
     agency: string,
@@ -27,7 +27,7 @@ type RootStackParamList = {
   CrewMember: {
     profileImg: string,
     info: {
-      id: number,
+      id: string,
       name: string,
       status: string,
       agency: string,
@@ -46,7 +46,6 @@ const CrewMembersCard = ({ item, index, permissionGranted }: Props) => {
     agency,
     wikipedia
   } = item
-
   const onNavigateClick = async () => {
     if (permissionGranted) {
       navigation.navigate('CrewMember', {

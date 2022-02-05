@@ -15,7 +15,7 @@ interface Prop {
     params: {
       profileImg: string,
       info: {
-        id: number,
+        id: string,
         name: string,
         status: string,
         agency: string,

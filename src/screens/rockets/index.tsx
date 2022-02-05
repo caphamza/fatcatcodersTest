@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { myColors } from '../../styles/colors'
 import globalStyle from '../../styles'
 import EmptyIcon from '../../assets/icons/empty.png'
+import { RocketAPIResponse } from '../../interfaces'
 
 // components
 import {
@@ -22,7 +23,7 @@ import { rocketAPI } from '../../api'
 
 const Rockets = () => {
 
-  const [data, setdata] = useState([])
+  const [data, setdata] = useState<RocketAPIResponse[]>([])
   const [fetched, setFetched] = useState(false)
   const [loading, setLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
@@ -34,8 +35,8 @@ const Rockets = () => {
   const getData = async (refresh = false) => {
     try {
       refresh ? setRefreshing(true) : setLoading(true)
-      const res: any = await rocketAPI()
-      setdata(res.data)
+      const res = await rocketAPI()
+      setdata(res)
     } catch (e: any) {
       if (e.message.includes('Network Error')) {
         ErrorAlert('Network Error', 'No Internet!\n Please try later')
@@ -58,7 +59,7 @@ const Rockets = () => {
               data={data}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, index }) => <Card index={index} item={item}/>}
-              keyExtractor={(item: any) => item.id}
+              keyExtractor={(item) => item.id }
               refreshControl={
                 <RefreshControl
                 colors={[myColors.brandGreen]}
